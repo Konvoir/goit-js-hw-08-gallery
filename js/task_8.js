@@ -66,7 +66,10 @@ const galleryItems = [
   ];
 
 const refs = {
-  gallery: document.querySelector('.js-gallery')
+  gallery: document.querySelector('.js-gallery'),
+  modal: document.querySelector('.js-lightbox'),
+  modalImages: document.querySelector('.lightbox__image'),
+  closeModalBtn: document.querySelector('button[data-action="close-lightbox"]')
 }
 // Создание и рендер разметки по массиву данных
 const cardsMarkup = createCardsMarkup(galleryItems);
@@ -97,4 +100,33 @@ function onGalleryClick (evt) {
      return;
   }
 
+  const imagesRef = evt.target;
+  const largeImagesSource = imagesRef.dataset.source;
+  const largeImagesAlt = imagesRef.alt
+
+  // Подмена значения атрибутов
+  setLargeImageSrc(largeImagesSource);  
+  setLargeImageAlt(largeImagesAlt);
+
+
+  // Открытие модального окна 
+  refs.modal.classList.add('is-open');
+
 };
+
+function setLargeImageSrc(url) {
+  refs.modalImages.src = url;
+};
+
+function setLargeImageAlt(alt) {
+  refs.modalImages.alt = alt;};
+
+
+  // <!-- Закрытие модального окна по
+  //  клику на кнопку button[data-action="close-lightbox"]. -->
+
+  function closeModal() {
+    refs.modal.classList.remove('is-open');
+    refs.modalImages.src = "";
+    refs.modalImages.alt = "";
+ }
