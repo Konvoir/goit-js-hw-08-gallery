@@ -69,6 +69,7 @@ const refs = {
   gallery: document.querySelector('.js-gallery'),
   modal: document.querySelector('.js-lightbox'),
   modalImages: document.querySelector('.lightbox__image'),
+  overlay: document.querySelector('.lightbox__overlay'),
   closeModalBtn: document.querySelector('button[data-action="close-lightbox"]')
 }
 // Создание и рендер разметки по массиву данных
@@ -130,3 +131,13 @@ function setLargeImageAlt(alt) {
     refs.modalImages.src = "";
     refs.modalImages.alt = "";
  }
+
+refs.closeModalBtn.addEventListener('click', closeModal);
+refs.overlay.addEventListener('click', closeModal);
+
+
+document.addEventListener('keydown', (event) => {
+   if (event.code === 'Escape' && refs.modal.classList.contains('is-open') === true) {
+      closeModal(event);
+   }
+})
